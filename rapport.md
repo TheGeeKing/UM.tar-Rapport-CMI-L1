@@ -2,6 +2,8 @@
 
 Participants : Marc-Antoine MOUTTET, Arthur DE FAYS, Aurélien BIDAUT.
 
+[TOC]
+
 ## Introduction
 
 Notre projet se base sur un besoin de centraliser les cours, fiches, exercices et corrections des Unités d'Enseignement en informatique.
@@ -27,6 +29,7 @@ Langages utilisés :
 
   - Ajout d'exercices de bases et de leurs corrections.
   - Ajout de fiches de cours.
+  - Ajout d'un système d'upload des exercices via une interface afin de faciliter la mise en BDD.
 
 - MK3 : Exercices dynamiques :
 
@@ -110,3 +113,35 @@ Voici une capture d'écran de la page d'accueil du site :
 ---
 
 TODO : Nettoyer le code, ajouter des commentaires, mieux utiliser mes fonctions, protéger le téléchargement des fichiers, passer certaines pages HTML en PHP et vice versa.
+
+### Séance 2 (24/01/23)
+
+Nous avons mis en place un diagramme de Gantt afin de suivre des objectifs et d'avancé de manière plus structurée. Pour cela, nous avons utilisé [Notion.so](https://notion.so) et un template appelé [Échéancier de projet](https://www.notion.so/fr-fr/help/guides/timeline-view-unlocks-high-output-planning-for-your-team). Cela nous permet de mettre nos objectifs, d'y ajouter des notes, les personnes qui s'en occupe, des tags afin de définir ce que c'est comme travail, la date de début et de fin de l'objectif.
+
+Voici une capture d'écran du diagramme de Gantt :
+
+<img alt="Screenshot partiel diagramme de gantt" src="assets/diagram_gantt.png" width="auto">
+
+---
+
+On peut y voir l'objectif Mk1, qui a été réalisé par Marc-Antoine, dont le délai était de 7 jours, c'était du développement et est désormais fini et mis à disposition en production sur [le site](https://mma.dev/um/).
+
+À noter que ce diagramme ainsi que les rapports sont suceptibles d'être modifiés afin d'être ajustés à nos objectifs et délais.
+
+### 25/01/23-30/01/23
+
+Nous avons décelé pendant la première période de "Bug Hunt", un bug empêchant de réinitialiser son mot de passe. Ce bug était dû à une erreur de syntax d'une variable dans le code. Nous avons désormais choisi une nomenclature afin de nommer nos variables et celle ci sera utilisée pour le reste du projet.
+
+Nous avons par ailleurs commencé à travailler sur les fiches et cours des UEs. Nous avons aussi commencé à travailler sur la répartitions des UE entre le groupe. Des idées de changements de design ont été proposées, nous devons continuer à en discuter afin de proposer la meilleur expérience et interface à nos utilisateurs.
+
+Nous avons proposer l'ajout à Mk2, d'une page, réservée pour le moment aux admins, permettant de facilement ajouter des exercices à la base de données.
+
+L'idée d'une page "tutoriel" permettant d'apprendre pleins de choses utiles et importantes à la bonne insertion à l'UM a été proposée. Nous devons continuer à en discuter afin de déterminer si elle représente un réelle besoin et son utilité pour les utilisateurs.
+
+## Glossaire
+
+- UE : **U**nité d'**e**nseignement
+- UM : **U**niversité de **M**ontpellier
+- UM.tar : UM fait référence à l'Université de Montpellier, tar fait référence à l'extension de fichier tar, qui est un format d'archive.
+- Mk : **M**ark, version, étape du projet; fait référence aux différentes armures d'Iron Man.
+- BDD : **B**ase **d**e **D**onnées
