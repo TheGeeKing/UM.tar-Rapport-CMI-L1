@@ -56,16 +56,16 @@ Nous avons mis nos idées en ordre, puis défini un plan de séance et enfin mis
 
 MK1 : Marc-Antoine
 
-Le site avait besoin d'un système d'authentification n'autorisant l'accès qu'aux élèves de l'Université de Montpellier. Un compte utilisateur possède généralement entant qu'identifiant de connexion un nom d'utilisateur ou un email. Pour cela, la façon la plus simple de vérifier l'authenticité de l'utilisateur au seins de l'Université de Montpellier était d'utiliser son adresse email universitaire (prénom.nom@etu.umontpellier.fr). Pour se créer un compte, l'utilisateur est invité à aller sur [la page de création de compte](https://mma.dev/um/signup.html). Sur celle ci, il est invité à renseigner :
+Le site avait besoin d'un système d'authentification n'autorisant l'accès qu'aux élèves de l'Université de Montpellier. Un compte utilisateur possède généralement, en  tant qu'identifiant de connexion, un nom d'utilisateur ou un email. Pour cela, la façon la plus simple de vérifier l'authenticité de l'utilisateur au seins de l'Université de Montpellier était d'utiliser son adresse email universitaire (prénom.nom@etu.umontpellier.fr). Pour se créer un compte, l'utilisateur est invité à aller sur [la page de création de compte](https://mma.dev/um/signup.html). Sur celle ci, il est invité à renseigner :
 
 - son adresse email universitaire
 - un mot de passe de 14 caractères minimum
 
-L'utilisateur doit aussi cocher une case signifiant qu'il reconnait utiliser les ressources fournies seulement à des fins d'éducation et personnelle. _Cette partie sera modifier afin d'inclure plus d'explications à nos utilisateurs et mieux encadrer leurs droits et devoirs_
+L'utilisateur doit aussi cocher une case signifiant qu'il reconnait utiliser les ressources fournies seulement à des fins d'éducation et personnelle. _Cette partie sera modifiée afin d'inclure plus d'explications à nos utilisateurs et mieux encadrer leurs droits et devoirs_
 
 L'utilisateur peut ensuite cliquer sur le bouton s'inscrire.
 
-à noter que : Le site utilise un certificat TLS/1.3 de la société Let's Encrypt, afin de garantir la sécurité des données échangées entre le serveur et le client. Ceci permet de protéger les données échanger entre le serveur et le client, comme les mots de passe, les adresses email, etc. Le serveur et le client utilisent un protocole de communication sécurisé, le HTTPS, qui permet de chiffrer les données échangées. Cette sécurité est nécéssaire afin de protéger le serveur et le client d'être victimes d'attaques, comme par exemple : Man In The Middle (MITM). _Man In The Middle (L'homme du milieu) consiste à intercepter les données échangées entre le serveur et le client, afin de les modifier ou de les voler._
+à noter que : Le site utilise un certificat TLS/1.3 de la société Let's Encrypt, afin de garantir la sécurité des données échangées entre le serveur et le client. Ceci permet de protéger les données échangées entre le serveur et le client, comme les mots de passe, les adresses email, etc. Le serveur et le client utilisent un protocole de communication sécurisé, le HTTPS, qui permet de chiffrer les données échangées. Cette sécurité est nécéssaire afin de protéger le serveur et le client d'être victimes d'attaques, comme par exemple : Man In The Middle (MITM). _Man In The Middle (L'homme du milieu) consiste à intercepter les données échangées entre le serveur et le client, afin de les modifier ou de les voler._
 
 Voici une capture d'écran de la page de création de compte :
 
@@ -75,7 +75,7 @@ _un lien permettant de se connecter sera potentiellement ajouté sur cette page 
 
 Une fois le bouton s'inscrire appuyé, l'utilisateur est invité, si la requête d'envoie d'email à bien pu être effectuée, à vérifier son adresse email universitaire où il retrouvera un code de vérification à rentrer sur la page de création de compte. Une fois rentré et validé, l'utilisateur est redirigé vers [la page d'utilisation du site](https://mma.dev/um/connected.html). L'utilisateur peut en cas de problème/non réception de l'email cliquer sur le lien "Renvoyer le code de vérification". Il se vera alors renvoyer un nouvel email avec un nouveau code de vérification. _Suite à l'utilisation d'un code de vérification, ce dernier est ensuite invalidé dans la base de données._
 
-L'utilisateur peut aussi changer son mot de passe, pour cela, il doit être sur [la page de connexion](https://mma.dev/um/login.html) et cliquer sur le lien "Mot de passe oublié". Il aura ensuite la possibilité après avoir renseigné son adresse email universitaire et confirmer son identité via un code reçu sur son email de rentrer un nouveau mot de passe.
+L'utilisateur peut aussi changer son mot de passe, pour cela, il doit être sur [la page de connexion](https://mma.dev/um/login.html) et cliquer sur le lien "Mot de passe oublié". Il aura ensuite la possibilité, après avoir renseigné son adresse email universitaire et confirmer son identité via un code reçu sur son email, de rentrer un nouveau mot de passe.
 
 Voici une capture d'écran de la page de connexion :
 
@@ -83,7 +83,7 @@ Voici une capture d'écran de la page de connexion :
 
 ---
 
-Afin de protéger toutes les pages du site, celles ci dès lors de leur requête par un utilisateur au serveur éxécutent un fichier php permettant de vérifier l'existence et l'authenticité de la session. Pour cela, nous utilisions `session_start()` qui nous permet de démarrer une session. Nous vérifions si les variables de session dont nous avons besoins existent, comme : le timestamp de création de session, l'email, le hash du mot de passe, l'ID utilisateur et l'ID de session php. Le timestamp de création de session est utilisé pour vérifier si la session n'a pas expiré. _Une session expire toutes les 24 heures, ceci afin d'assurer la sécurité du site et des utilisateurs._ Les autres variables de sessions servent afin que l'utilisateur puissent utiliser le site sans avoir à se reconnecter à chaque fois. Mais ces variables servent aussi à vérifier l'authenticité de l'utilisateur. L'email permet dans un premier temps de vérifier si le compte existe bel et bien. Le hash du mot de passe permet de vérifier si le mot de passe est valide, c'est à dire que celui de la session va être comparé à celui de la base de données, si ils sont identiques alors c'est bon. Le hash de mot de passe à un rôle similaire à un token, en cas de changement de mot de passe, celui là change et rend invalide toutes les autres sessions. L'ID de session est aussi envoyé au serveur, afin de vérifier si l'ID de session est valide. Ceci permet de limite le nombre de session simultanée d'un utilisateur à une seule afin d'améliorer la sécurité du site. Si une de ces variables n'existe pas ou n'est pas valide, l'utilisateur est redirigé vers [la page de connexion](https://mma.dev/um/login.html). Si toutes les variables sont valides, l'utilisateur peut accéder à la page demandée.  
+Afin de protéger toutes les pages du site, celles-ci dès lors de leur requête par un utilisateur au serveur éxécutent un fichier php permettant de vérifier l'existence et l'authenticité de la session. Pour cela, nous utilisions `session_start()` qui nous permet de démarrer une session. Nous vérifions si les variables de session dont nous avons besoins existent, comme : le timestamp de création de session, l'email, le hash du mot de passe, l'ID utilisateur et l'ID de session php. Le timestamp de création de session est utilisé pour vérifier si la session n'a pas expiré. _Une session expire toutes les 24 heures, ceci afin d'assurer la sécurité du site et des utilisateurs._ Les autres variables de sessions servent afin que l'utilisateur puisse utiliser le site sans avoir à se reconnecter à chaque fois. Mais ces variables servent aussi à vérifier l'authenticité de l'utilisateur. L'email permet dans un premier temps de vérifier si le compte existe bel et bien. Le hash du mot de passe permet de vérifier si le mot de passe est valide, c'est à dire que celui de la session va être comparé à celui de la base de données, s'ils sont identiques alors c'est bon. Le hash de mot de passe à un rôle similaire à un token, en cas de changement de mot de passe, celui là change et rend invalide toutes les autres sessions. L'ID de session est aussi envoyé au serveur, afin de vérifier si l'ID de session est valide. Ceci permet de limiter le nombre de session simultanées d'un utilisateur à une seule afin d'améliorer la sécurité du site. Si une de ces variables n'existe pas ou n'est pas valide, l'utilisateur est redirigé vers [la page de connexion](https://mma.dev/um/login.html). Si toutes les variables sont valides, l'utilisateur peut accéder à la page demandée.  
 L'ID de session est régénéré à chaque fois que l'utilisateur se connecte et est mis à jour dans la base de données, afin d'éviter les attaques de type fixation de session. _L'attaque par fixation de session consiste à forcer l'utilisateur à utiliser et entrer ses données sur une session que l'attaquant a créé, l'attaquant peut ensuite utiliser le numéro de session pour usurper l'utilisateur._
 
 En résumé, le site permet pour le moment de se créer un compte, vérifier son compte via un code de vérification, changer son mot de passe, se connecter, accéder au contenu de certaines UEs et télécharger des fichiers.
@@ -116,7 +116,7 @@ TODO : Nettoyer le code, ajouter des commentaires, mieux utiliser mes fonctions,
 
 ### Séance 2 (24/01/23)
 
-Nous avons mis en place un diagramme de Gantt afin de suivre des objectifs et d'avancé de manière plus structurée. Pour cela, nous avons utilisé [Notion.so](https://notion.so) et un template appelé [Échéancier de projet](https://www.notion.so/fr-fr/help/guides/timeline-view-unlocks-high-output-planning-for-your-team). Cela nous permet de mettre nos objectifs, d'y ajouter des notes, les personnes qui s'en occupe, des tags afin de définir ce que c'est comme travail, la date de début et de fin de l'objectif.
+Nous avons mis en place un diagramme de Gantt afin de suivre des objectifs et d'avancer de manière plus structurée. Pour cela, nous avons utilisé [Notion.so](https://notion.so) et un template appelé [Échéancier de projet](https://www.notion.so/fr-fr/help/guides/timeline-view-unlocks-high-output-planning-for-your-team). Cela nous permet de mettre nos objectifs, d'y ajouter des notes, les personnes qui s'occupe de chaque tâches, des tags afin de définir ce que c'est comme travail, la date de début et de fin de l'objectif.
 
 Voici une capture d'écran du diagramme de Gantt :
 
@@ -126,17 +126,17 @@ Voici une capture d'écran du diagramme de Gantt :
 
 On peut y voir l'objectif Mk1, qui a été réalisé par Marc-Antoine, dont le délai était de 7 jours, c'était du développement et est désormais fini et mis à disposition en production sur [le site](https://mma.dev/um/).
 
-À noter que ce diagramme ainsi que les rapports sont suceptibles d'être modifiés afin d'être ajustés à nos objectifs et délais.
+À noter que ce diagramme, ainsi que les rapports sont suceptibles d'être modifiés afin d'être ajustés à nos objectifs et délais.
 
 ### 25/01/23-30/01/23
 
-Nous avons décelé pendant la première période de "Bug Hunt", un bug empêchant de réinitialiser son mot de passe. Ce bug était dû à une erreur de syntax d'une variable dans le code. Nous avons désormais choisi une nomenclature afin de nommer nos variables et celle ci sera utilisée pour le reste du projet.
+Nous avons décelé pendant la première période de "Bug Hunt", un bug empêchant de réinitialiser son mot de passe. Ce bug était dû à une erreur de syntaxe d'une variable dans le code. Nous avons désormais choisi une nomenclature afin de nommer nos variables et celle-ci sera utilisée pour le reste du projet.
 
 Nous avons par ailleurs commencé à travailler sur les fiches et cours des UEs. Nous avons aussi commencé à travailler sur la répartitions des UE entre le groupe. Des idées de changements de design ont été proposées, nous devons continuer à en discuter afin de proposer la meilleur expérience et interface à nos utilisateurs.
 
-Nous avons proposer l'ajout à Mk2, d'une page, réservée pour le moment aux admins, permettant de facilement ajouter des exercices à la base de données.
+Nous avons proposer l'ajout à Mk2, d'une page, réservée pour le moment aux administrateurs, permettant de facilement ajouter des exercices à la base de données.
 
-L'idée d'une page "tutoriel" permettant d'apprendre pleins de choses utiles et importantes à la bonne insertion à l'UM a été proposée. Nous devons continuer à en discuter afin de déterminer si elle représente un réelle besoin et son utilité pour les utilisateurs.
+L'idée d'une page "tutoriel" permettant d'apprendre plein de choses utiles et importantes à la bonne insertion à l'UM a été proposé. Nous devons continuer à en discuter afin de déterminer si elle représente un réelle besoin et son utilité pour les utilisateurs.
 
 ## Glossaire
 
